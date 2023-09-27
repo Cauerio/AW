@@ -1,4 +1,4 @@
-![Foto | 100](https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU) # Cauê Fiorini Venancio
+![Foto](https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU){width=200 height=200} # Cauê Fiorini Venancio
 
 ## Contacto
 
