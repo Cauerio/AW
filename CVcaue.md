@@ -1,4 +1,4 @@
-![Foto]() # Cauê Fiorini Venancio
+![Foto](https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU) # Cauê Fiorini Venancio
 
 ## Contacto
 
@@ -25,7 +25,7 @@ y redes.**
 - Software de edición de fotos
 (Photoshop).
 - Software de programación de
-desarrollo web (Brackets).
+desarrollo web.
 
 ## Idiomas
 - Portugués - Idioma materno
