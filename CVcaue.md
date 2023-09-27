@@ -1,4 +1,4 @@
-![Foto](https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU){ width=200 }
+![](https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFUç){ width=200 }
 
 # Cauê Fiorini Venancio
 
@@ -8,7 +8,7 @@ Teléfono: +34 633675607
 
 Email: cauefioni123@gmail.com 
 
-github:[Cauê](https://github.com/Cauerio)
+github: [Cauê](https://github.com/Cauerio)
  
 
 ## Formación y Educación
