@@ -1,0 +1,33 @@
+https://moodle.nigul.coop/course/modedit.php?add=assign&type=&course=82&section=3&return=0&sr=0
+1.Protocolo = https:// 
+2.Dominio = moodle.nigul.coop
+3.Directorio = /course
+4.Archivo = /modedit.php
+5.Query = ?add=assign&type=&course=82&section=3&return=0&sr=0
+
+github.com/marketplace?type=apps
+1.Dominio = github.com
+2.Directorio = /markplace
+3.Query = ?type=apps
+
+
+https://www.meneame.net/story/primer-vuelo-avion-hidrogeno-mas-grande-mundo#comentario1
+1.Protocolo = https://
+2.Subdominio = www.
+3.Dominio = meneame.net
+4.Directorio = /story/primervuelo-avion-hidrogeno-mas-grande-mundo
+5.Etiqueta(fragmento) = #comentario1
+
+https://thispersondoesnotexist.com/image
+1.Protocolo = https://
+2.Dominio = thispersondoesnotexist.com
+3.Directorio = /image
+
+sftp://example.com
+1.Protocolo = sftp://
+2.Dominio = examen.com
+
+info/noticia.html?p=2
+1.Directorio = info/
+2.Archivo = noticia.html
+3.Query = ?p=2
