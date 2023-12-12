@@ -4,10 +4,6 @@
 <head>
     <title>rentcar</title>
     <style>
-        body {
-            font-family: sans-serif;
-
-        }
         .filter-box {
             border: 1px solid #ccc;
             padding: 10px;
@@ -53,28 +49,24 @@
     <h2>Filtros:</h2>
     <form method="post" action="">
         <div class="filter-box">
-            <label for="filterByMunicipi">
-                <input type="checkbox" name="filterOption" value="municipi" id="filterByMunicipi" onclick="toggleMunicipiDropdown()"> Filtrar por Municipio
-            </label>
-            <div id="municipiDropdown" style="display: none;">
-                <?php
-                // Desplegable para municipios
-                $uniqueMunicipios = array_unique((array)$xml->xpath("//row/municipi"));
-                sort($uniqueMunicipios); // Ordenar alfabéticamente
-                echo '<select name="municipi">';
-                foreach ($uniqueMunicipios as $municipio) {
-                    echo '<option value="' . $municipio . '">' . $municipio . '</option>';
-                }
-                echo '</select>';
-                ?>
-            </div>
+        <label for="municipi">Municipio:</label>
+<select name="municipi">
+    <option value="" selected>Seleccionar</option>
+    <?php
+    // Desplegable para municipios
+    $uniqueMunicipios = array_unique((array)$xml->xpath("//row/municipi"));
+    sort($uniqueMunicipios); // Ordenar alfabéticamente
+    foreach ($uniqueMunicipios as $municipio) {
+        echo '<option value="' . $municipio . '">' . $municipio . '</option>';
+    }
+    ?>
+</select>
+
         </div>
 
         <div class="filter-box">
-            <label for="filterByCodigosPostales">
-                <input type="checkbox" name="filterOption" value="adre_a_de_l_establiment" id="filterByCodigosPostales" onclick="toggleCodigosPostalesCheckboxes()"> Filtrar por Código Postal
-            </label>
-            <div id="codigosPostalesCheckboxes" style="display: none;">
+            <label>Código Postal:</label>
+            <div class="options-container">
                 <?php
                 // Radiobuttons para códigos postales
                 $uniqueCodigosPostales = array();
@@ -95,9 +87,7 @@
         </div>
 
         <div class="filter-box">
-            <label for="filterByNombre">
-                <input type="checkbox" name="filterOption" value="nombre" id="filterByNombre"> Filtrar por Nombre
-            </label>
+            <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" />
         </div>
 
@@ -107,39 +97,32 @@
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $filterOption = isset($_POST['filterOption']) ? $_POST['filterOption'] : '';
         $selectedMunicipi = isset($_POST['municipi']) ? $_POST['municipi'] : '';
         $selectedCodigosPostales = isset($_POST['adre_a_de_l_establiment']) ? $_POST['adre_a_de_l_establiment'] : array();
         $nombreFilter = isset($_POST['nombre']) ? strtolower($_POST['nombre']) : '';
 
-        if (empty($filterOption)) {
-            echo "Por favor, selecciona una opción de filtro.";
-        } elseif ($filterOption === 'municipi' && empty($selectedMunicipi)) {
-            echo "Por favor, selecciona al menos un municipio para el filtro.";
-        } elseif ($filterOption === 'adre_a_de_l_establiment' && empty($selectedCodigosPostales)) {
-            echo "Por favor, selecciona al menos un código postal para el filtro.";
-        } elseif ($filterOption === 'nombre' && empty($nombreFilter)) {
-            echo "Por favor, ingresa un nombre para el filtro.";
+        if (empty($selectedMunicipi) && empty($selectedCodigosPostales) && empty($nombreFilter)) {
+            echo "Por favor, selecciona al menos un municipio, un código postal o ingresa un nombre para filtrar.";
         } else {
             echo "<h2>Información detallada:</h2>";
 
             foreach ($rows as $row) {
                 $nombreEmpresa = strtolower((string)$row->nom_explotador_s);
                 $nombreComercio = strtolower((string)$row->denominaci_comercial);
-
+                $codigoPostal = (string)$row->codi_postal; // Extraemos el código postal
+            
                 if (
-                    ($filterOption === 'municipi' && (string)$row->municipi !== $selectedMunicipi) ||
-                    ($filterOption === 'adre_a_de_l_establiment' && !in_array((string)$row->adre_a_de_l_establiment, $selectedCodigosPostales)) ||
-                    ($filterOption === 'nombre' && (
-                        strpos($nombreEmpresa, $nombreFilter) === false &&
-                        strpos($nombreComercio, $nombreFilter) === false &&
-                        strpos($row->municipi, $nombreFilter) === false &&
+                    (!empty($selectedMunicipi) && (string)$row->municipi !== $selectedMunicipi) ||
+                    (!empty($selectedCodigosPostales) && !in_array($codigoPostal, $selectedCodigosPostales)) ||
+                    (!empty($nombreFilter) && (
+                        strpos($nombreEmpresa, $nombreFilter) === false ||
+                        strpos($nombreComercio, $nombreFilter) === false ||
+                        strpos($row->municipi, $nombreFilter) === false ||
                         strpos($row->adre_a_de_l_establiment, $nombreFilter) === false
                     ))
                 ) {
                     continue;
                 }
-
                 echo "<ul>";
                 echo "<li><strong>Municipio:</strong> " . (string)$row->municipi . "</li>";
                 echo "<li><strong>Dirección:</strong> " . (string)$row->adre_a_de_l_establiment . "</li>";
@@ -149,32 +132,27 @@
                 echo "<li><strong>Nombre de la empresa:</strong> " . highlightFilteredText($nombreEmpresa, $nombreFilter) . "</li>";
                 echo "<li><strong>NIF del explotador:</strong> " . (string)$row->nif_cif_explotador_s . "</li>";
                 echo "</ul>";
-                echo "<hr>";
+                echo "<hr>"; // Separador visual entre conjuntos de información
             }
         }
     }
 
     function highlightFilteredText($text, $filter)
     {
-        if ($filter) {
-            $text = preg_replace("/\b($filter)\b/i", '<span class="highlight">$1</span>', $text);
-        }
-        return $text;
+        $highlighted = str_replace($filter, '<span class="highlight">' . $filter . '</span>', $text);
+        return $highlighted;
     }
     ?>
 
-    <script>
-        function toggleMunicipiDropdown() {
-            var municipiDropdown = document.getElementById('municipiDropdown');
-            municipiDropdown.style.display = document.getElementById('filterByMunicipi').checked ? 'block' : 'none';
-        }
-
-        function toggleCodigosPostalesCheckboxes() {
-            var codigosPostalesCheckboxes = document.getElementById('codigosPostalesCheckboxes');
-            codigosPostalesCheckboxes.style.display = document.getElementById('filterByCodigosPostales').checked ? 'block' : 'none';
-        }
-    </script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
 
