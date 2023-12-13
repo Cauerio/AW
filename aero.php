@@ -1,6 +1,47 @@
 <?php
-$iata = $_GET['iata']
-$aerolinea = $_GET['aero']
+$archivo = "iata_airlines.csv";
+
+//yago
+$code = $_GET['code'];
+$fila=0;
+$fila1=0;
+$array1=[];
+$fp = fopen($archivo, "r");
+while (($line = fgetcvs($fp,2000,'^')) !== FALSE) {
+	$array1[$fila] = $line;
+	$fila ++;
+}
+fclose($file);
+
+$array2= [];
+$file1 =fopen('airport.csv', 'r');
+while (($line1 = fgetcsv($file1)) !== FALSE) {
+
+	$array2[$fila1] = $line1;
+	$fila1 ++;
+fclose($file1);
+
+for ($i=0<count($array1);$i++)
+{
+	if ($code == $array1[$i][0])
+	{
+	echo $array2[$i][2]
+}
+for ($i=0<count($array2);$i++)
+{
+	if ($code == $array2[$i][9])
+	{
+	echo $array2[$i][2];
+}
+}
+//aqui se acabo lo de yago que al final nos lo pasará por gmail
+
+$contenido = fread($fp, filesize($archivo));
+$iata = isset($_GET['iata']) ? $_GET['iata'] : '';
+$compania = isset($_GET['compañia']) ? $_GET['compañia'] : '';
+$getiata = $iata;
+
+
 $aerolineas = array (
 
 "0B"=>"Blue Air",
@@ -1072,5 +1113,5 @@ $aerolineas = array (
 "ZZ"=>"Airline Service",
 );
 
-echo  $iata
+echo $iata; 
 ?>
