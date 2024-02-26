@@ -8,6 +8,14 @@ print(
 "
 <script>
 
+function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+
 function fupdate(emp){
 	
 a = 'update.php?empleado='+emp;
@@ -20,23 +28,23 @@ parent.document.getElementById('update').src = a;
 
 function fdelete(emp){
 
-a = 'delete_backend.php?empleado='+emp;
+document.getElementById('emp_id').value = emp;
+document.getElementById('deleteForm').submit();
 
-parent.document.getElementById('delete')src = a;
 
+parent.document.getElementById('list').src = 'list_delete.php';
 
 
 }
 
 
-function forder(n,d,f){
+function forder(n,d){
 
 
 
 
 document.getElementById(\"campo_orderid\").value = n;
 document.getElementById(\"dir_orderid\").value = d;
-document.getElementsById(\"emp_no\").value = f;
 
 document.getElementById(\"submitForm\").submit();
 
@@ -254,7 +262,6 @@ $link_update = "";
 		 }else{print("<td align=\"right\"></td>");}
 		 print("<td align=\"center\"><a href=\"javascript:fupdate(".$row[0].")\">X</a></td>");
                  print("<td align=\"center\"><a href=\"javascript:fdelete(".$row[0].")\">X</a></td>");
-
 	 print("</tr>");
 	 $cuenta++;
 	 $sum_salarios = $sum_salarios + $row[3];
